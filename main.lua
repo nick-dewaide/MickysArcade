@@ -66,13 +66,17 @@ local powerSpeed         = 0.7   -- osc speed (Hz-ish)
 local swaySpeed          = 0.5
 local tiltSpeed          = 0.6
 
+
+local sprite_scale = 0.5
 -- Set a reasonable start position after we know the window size
 function love.load()
     print("load my balls")
     micky = love.graphics.newImage("micky.jpeg")
     love.graphics.setDefaultFilter("nearest", "nearest")
-    love.window.setMode(micky:getWidth(), micky:getHeight(), { resizable = false, vsync = true })
-    startPos = { x = micky:getWidth() * 0.5, y = micky:getHeight() - 80, z = 0 }
+    local winW = micky:getWidth()  * sprite_scale
+    local winH = micky:getHeight() * sprite_scale
+    love.window.setMode(winW, winH, { resizable = false, vsync = true })
+    startPos = { x = winW * 0.5, y = winH - 40, z = 0 }
 end
 
 throwMagnitude = {}
@@ -143,7 +147,7 @@ function love.update(dt)
 end
 
 function love.draw()
-    love.graphics.draw(micky, 0, 0)
+    love.graphics.draw(micky, 0, 0, 0, spriteScale, spriteScale)
 
     -- Active flight
     if throwActive then
